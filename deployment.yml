@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: s3-count-extractor
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  template:
+    spec:
+      containers:
+      - name: s3-count-extractor
+        image: quay.io/ukhomeofficedigital/dq-count-extractor:latest
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+        env:
+        - name: START_DATE
+          value: '2018/02/13'
+        - name: END_DATE
+          value: '2019/01/21'
+        - name: MULTI_PROCESS
+          value: 'true'
+        - name: POOL_SIZE
+          value: '8'
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: s3countextractor
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3countextractor
+              key: AWS_SECRET_ACCESS_KEY
+        - name: BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: s3countextractor
+              key: BUCKET
+        - name: AWS_DEFAULT_REGION
+          value: 'eu-west-2'
+      restartPolicy: Never
