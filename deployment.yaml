@@ -3,8 +3,6 @@ kind: Job
 metadata:
   name: s3-count-extractor
 spec:
-  replicas: 1
-  revisionHistoryLimit: 3
   template:
     spec:
       containers:
