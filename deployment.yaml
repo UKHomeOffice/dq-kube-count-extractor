@@ -13,9 +13,15 @@ spec:
           runAsUser: 1001
         env:
         - name: START_DATE
-          value: '2018/02/13'
+          valueFrom:
+            secretKeyRef:
+              name: s3countextractor
+              key: START_DATE
         - name: END_DATE
-          value: '2019/01/21'
+          valueFrom:
+            secretKeyRef:
+              name: s3countextractor
+              key: END_DATE
         - name: MULTI_PROCESS
           value: 'true'
         - name: POOL_SIZE
