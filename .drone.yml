@@ -11,8 +11,6 @@ pipeline:
       - export AWS_ACCESS_KEY_ID=$$NOTPROD_AWS_ACCESS_KEY_ID
       - export AWS_SECRET_ACCESS_KEY=$$NOTPROD_AWS_SECRET_ACCESS_KEY
       - export BUCKET=$$NOTPROD_BUCKET
-      - export START_DATE=$$NOTPROD_START_DATE
-      - export END_DATE=$$NOTPROD_START_DATE
       - kd -f secrets.yaml -f deployment.yaml
     secrets:
       - NOTPROD_KUBE_TOKEN
@@ -20,8 +18,6 @@ pipeline:
       - NOTPROD_AWS_ACCESS_KEY_ID
       - NOTPROD_AWS_SECRET_ACCESS_KEY
       - NOTPROD_BUCKET
-      - NOTPROD_START_DATE
-      - NOTPROD_END_DATE
     when:
       event: push
 
@@ -36,8 +32,6 @@ pipeline:
       - export AWS_ACCESS_KEY_ID=$$PROD_AWS_ACCESS_KEY_ID
       - export AWS_SECRET_ACCESS_KEY=$$PROD_AWS_SECRET_ACCESS_KEY
       - export BUCKET=$$PROD_BUCKET
-      - export START_DATE=$$PROD_START_DATE
-      - export END_DATE=$$PROD_START_DATE
       - kd -f secrets.yaml -f deployment.yaml
     secrets:
       - PROD_KUBE_TOKEN
@@ -45,8 +39,6 @@ pipeline:
       - PROD_AWS_ACCESS_KEY_ID
       - PROD_AWS_SECRET_ACCESS_KEY
       - PROD_BUCKET
-      - PROD_START_DATE
-      - PROD_END_DATE
     when:
       environment: production
       event: deployment
